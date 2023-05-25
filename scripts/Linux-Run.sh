@@ -1,2 +1,1 @@
-// Run the executable
 ./HelloRat
