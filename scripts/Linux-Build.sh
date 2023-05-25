@@ -1,3 +1,3 @@
 
 
-g++ ../HelloRat.cpp -o HelloRat
+g++ HelloRat.cpp -o HelloRat
