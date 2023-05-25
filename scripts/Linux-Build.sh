@@ -1,1 +1,1 @@
-g++ HelloRat.cpp -o HelloRat
+gcc HelloRat.cpp -o HelloRat
