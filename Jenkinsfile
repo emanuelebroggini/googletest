@@ -5,6 +5,7 @@ pipeline {
 			steps {
 				sh 'echo "Building..."'
 				sh 'chmod +x scripts/Linux-Build.sh' 
+				pwd
 				sh 'scripts/Linux-Build.sh' 
 				archiveArtifacts artifacts: 'bin/Debug/*', fingerprint: true
 			}
