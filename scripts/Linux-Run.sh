@@ -1,3 +1,2 @@
-#!/bin/bash
-cd /usr/src/googletest/googletest/samples/
+cd /var/lib/jenkins/workspace/googletest_main/googletest/samples
 ./sample1_unittest
