@@ -1,2 +1,2 @@
-dir /var/lib/jenkins/workspace/googletest_main/googletest/samples
+cd ./googletest/samples/
 ./sample1_unittest
