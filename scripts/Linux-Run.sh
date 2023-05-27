@@ -1,2 +1,2 @@
-cd googletest/samples
+#cd googletest/samples
 ./sample1_unittest

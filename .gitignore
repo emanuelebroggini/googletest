@@ -11,6 +11,8 @@ bazel-testlogs
 # python
 *.pyc
 
+ /var/lib/jenkins/workspace/googletest_main
+
 # Visual Studio files
 .vs
 *.sdf
