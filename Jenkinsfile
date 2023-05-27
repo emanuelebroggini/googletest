@@ -6,9 +6,10 @@ pipeline {
 				sh 'echo "Building..."'
 				sh 'chmod +x scripts/Linux-Build.sh' 
 				sh 'chmod +x googletest/samples/*'
-				sh 'pwd'
 				sh 'ls'
 				sh 'cd googletest'
+				sh 'ls'
+				sh ' cd samples'
 				sh 'scripts/Linux-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
