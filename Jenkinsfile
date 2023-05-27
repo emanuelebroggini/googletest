@@ -8,7 +8,7 @@ pipeline {
 				sh 'chmod +x googletest/samples/*'
 				sh 'pwd'
 				sh 'ls'
-				sh 'cd /googletest/samples'
+				sh 'cd googletest'
 				sh 'scripts/Linux-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
