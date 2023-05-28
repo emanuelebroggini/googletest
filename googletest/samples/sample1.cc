@@ -61,6 +61,10 @@ int lele (int n)
   return n-1 ;
 }
 
+double Andrea(double a){
+  return 12
+}
+
 // Returns true if and only if n is a prime number.
 bool IsPrime(int n) {
   // Trivial case 1: small numbers
