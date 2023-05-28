@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+		LD_LIBRARY_PATH = '/usr/lib'
+    	}
 	stages {
 		stage('Build') {
 			steps {
