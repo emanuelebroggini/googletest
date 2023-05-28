@@ -50,7 +50,7 @@ int FUDE(int n)
 int LEO(int n)
 { 
   int result=0;
-  for(i=1;i<n;i++)
+  for(int i=1;i<n;i++)
   result += i*n;
 
   return result;
@@ -62,7 +62,7 @@ int lele (int n)
 }
 
 double Andrea(double a){
-  return 12
+  return 12;
 }
 
 // Returns true if and only if n is a prime number.
