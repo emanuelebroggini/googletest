@@ -1,1 +1,1 @@
-cd googletest && cd samples && g++ -o sample1_unittest sample1_unittest.cc sample1.cc -lgtest -pthread
+cd googletest && cd samples && g++ -std=c++11 -o sample1_unittest -pthread -lgtest sample1_unittest.cc sample1.cc
