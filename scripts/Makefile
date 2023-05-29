@@ -11,6 +11,8 @@ SOURCES = $(wildcard $(SRCDIR)/*.cc)
 OBJECTSWITHTEST = $(patsubst $(SRCDIR)/%.cc,$(BUILDDIR)/%.o,$(SOURCES))
 OBJECTS = $(filter-out %_unittest.o,$(OBJECTSWITHTEST))
 
+all: tests
+
 # Rule to build the main of section 4.3
 main: $(OBJECTS) $(MAINDIR)/build/main.o
 	$(CC) $^ -o $@
