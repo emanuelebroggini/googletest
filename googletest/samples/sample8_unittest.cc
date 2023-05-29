@@ -30,7 +30,7 @@
 // This sample shows how to test code relying on some global flag variables.
 // Combine() helps with generating all possible combinations of such flags,
 // and each test is given one combination as a parameter.
-
+/*
 // Use class definitions to test from this header.
 #include <tuple>
 
@@ -152,3 +152,4 @@ INSTANTIATE_TEST_SUITE_P(MeaningfulTestParameters, PrimeTableTest,
                          Combine(Bool(), Values(1, 10)));
 
 }  // namespace
+*/

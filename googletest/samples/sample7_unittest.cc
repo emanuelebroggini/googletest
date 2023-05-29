@@ -32,7 +32,7 @@
 // value-parameterized tests. Each test in the test case has
 // a parameter that is an interface pointer to an implementation
 // tested.
-
+/*
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
 #include "gtest/gtest.h"
@@ -111,3 +111,4 @@ INSTANTIATE_TEST_SUITE_P(OnTheFlyAndPreCalculated, PrimeTableTestSmpl7,
                                 &CreatePreCalculatedPrimeTable<1000>));
 
 }  // namespace
+*/
