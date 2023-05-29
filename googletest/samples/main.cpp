@@ -1,6 +1,6 @@
 #include "sample1.h"
 #include "sample2.h"
-#include "sample3.h"
+#include "sample3-inl.h"
 #include "sample4.h"
 
 #include <limits.h>
