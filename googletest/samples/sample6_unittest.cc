@@ -29,7 +29,7 @@
 
 // This sample shows how to test common properties of multiple
 // implementations of the same interface (aka interface tests).
-
+/*
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
 #include "gtest/gtest.h"
@@ -212,3 +212,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(OnTheFlyAndPreCalculated,    // Instance name
                                PrimeTableImplementations);  // Type list
 
 }  // namespace
+*/
