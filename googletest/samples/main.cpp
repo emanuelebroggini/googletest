@@ -40,7 +40,7 @@ TEST(IsPrimeTest, Trivial) {
 }
 
 // Returns 12 always (with every input double type) 
-TEST (isAndreaTest, Boh) {
+TEST (isAndreaTest, TrivialCase) {
     EXPECT_EQ(12, Andrea(3.2));
 }
 
