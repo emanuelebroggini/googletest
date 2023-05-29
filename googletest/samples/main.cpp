@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 namespace {
-
+// From sample1: 
 TEST(FactorialTest, Negative) {
   // This test is named "Negative", and belongs to the "FactorialTest"
   // test case.
@@ -39,6 +39,15 @@ TEST(IsPrimeTest, Trivial) {
   EXPECT_TRUE(IsPrime(3));
 }
 
+// From sample2: 
+// Tests the c'tor that accepts a C string.
+TEST(MyString, ConstructorFromCString) {
+  const MyString s(kHelloString);
+  EXPECT_EQ(0, strcmp(s.c_string(), kHelloString));
+  EXPECT_EQ(sizeof(kHelloString) / sizeof(kHelloString[0]) - 1, s.Length());
+}
+
+// From sample3:
 TEST(Counter, Increment) {
   Counter c;
 
@@ -55,4 +64,9 @@ TEST(Counter, Increment) {
   EXPECT_EQ(3, c.Decrement());
 }
 
+}
+
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
