@@ -13,7 +13,7 @@ TEST(FactorialTest, Negative) {
   // This test is named "Negative", and belongs to the "FactorialTest"
   // test case.
   EXPECT_EQ(1, Factorial(6)); // dovrebbe dare errore
-  EXPECT_EQ(1, Factorial(2));
+  EXPECT_EQ(2, Factorial(2));
   EXPECT_GT(Factorial(-10), 0);
 
   // <TechnicalDetails>
@@ -42,6 +42,11 @@ TEST(IsPrimeTest, Trivial) {
 // Returns 12 always (with every input double type) 
 TEST (isAndreaTest, TrivialCase) {
     EXPECT_EQ(12, Andrea(3.2));
+}
+// FUDE return the triple of the input 
+TEST (isFudeTest, Normal) {
+    EXPECT_EQ(12, FUDE(3));
+    EXPECT_EQ(4, FUDE(2));
 }
 
 // From sample3:
