@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-namespace {
+
 // From sample1: 
 TEST(FactorialTest, Negative) {
   // This test is named "Negative", and belongs to the "FactorialTest"
@@ -64,7 +64,7 @@ TEST(Counter, Increment) {
   EXPECT_EQ(3, c.Decrement());
 }
 
-}
+
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
