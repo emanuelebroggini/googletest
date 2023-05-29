@@ -38,4 +38,4 @@ else()
   add_subdirectory( googletest )
 endif()
 
-add_subdirectory{ main }
+#add_subdirectory{ main }
