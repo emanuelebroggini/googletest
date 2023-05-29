@@ -1,2 +1,2 @@
-#cd googletest/samples
-./sample1_unittest
+#!/bin/bash
+cd googletest/samples && ./sample1_unittest
