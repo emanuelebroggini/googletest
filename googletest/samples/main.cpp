@@ -12,7 +12,7 @@
 TEST(FactorialTest, Negative) {
   // This test is named "Negative", and belongs to the "FactorialTest"
   // test case.
-  EXPECT_EQ(1, Factorial(6));
+  EXPECT_EQ(1, Factorial(6)); // dovrebbe dare errore
   EXPECT_EQ(1, Factorial(2));
   EXPECT_GT(Factorial(-10), 0);
 
@@ -39,12 +39,9 @@ TEST(IsPrimeTest, Trivial) {
   EXPECT_TRUE(IsPrime(3));
 }
 
-// From sample2: 
-// Tests the c'tor that accepts a C string.
-TEST(MyString, ConstructorFromCString) {
-  const MyString s(kHelloString);
-  EXPECT_EQ(0, strcmp(s.c_string(), kHelloString));
-  EXPECT_EQ(sizeof(kHelloString) / sizeof(kHelloString[0]) - 1, s.Length());
+// Returns 12 always (with every input double type) 
+TEST (isAndreaTest, Boh) {
+    EXPECT_EQ(12, Andrea(3.2));
 }
 
 // From sample3:
