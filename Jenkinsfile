@@ -24,6 +24,7 @@ pipeline {
 				sh './googletest/samples/samples.exe'
 				script {
                     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
+					echo exitCode
                     if (exitCode != 0) {
                         currentBuild.result = 'FAILURE'
                     }
@@ -81,7 +82,7 @@ pipeline {
 	post {
 		always {
 			echo 'One way or another, I have finished'
-			deleteDir() /* clean up our workspace */
+			// deleteDir() /* clean up our workspace */
 		}
 		success {
 			slackSend failOnError: true, 
