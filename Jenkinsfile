@@ -12,17 +12,31 @@ pipeline {
 				// sh 'cd ./googletest/samples && make' this is not working
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
+			post {
+				failure {
+					script {
+						currentBuild.result = 'FAILURE'
+					}
+				}
+			}
 		}
 		stage('RunSampleTests') {
-			// when {
-            //   expression {
-            //     currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-            //   }
-            // }
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
 			steps {
 				echo "Running sample tests"
 				// sh 'chmod +x scripts/Linux-Run.sh' 
 				sh './googletest/samples/samples.exe'
+			}
+			post {
+				always {
+					script {
+						currentBuild.result = 'SUCCESS'
+					}
+				}
 			}
 		}
 		stage('Build') {
@@ -32,20 +46,49 @@ pipeline {
 				sh './scripts/OurMain-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
+			post {
+				failure {
+					script {
+						currentBuild.result = 'FAILURE'
+					}
+				}
+			}
         }
 		stage('Test') {
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
             steps {
                 echo 'Test our functions'
 				sh "./main/tests.exe"
             }
+			post {
+				failure {
+					script {
+						currentBuild.result = 'FAILURE'
+					}
+				}
+			}
         }
 		stage('Run') {
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
 			steps {
 				echo 'Run our main'
 				sh "./main/main.exe ./main/inputText.txt ./main/uppercaseText.txt"
 			}
 		}
 		stage('Deploy') {
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
             steps {
                 echo 'Deploying....(not implemented yet)'
             }
@@ -58,11 +101,11 @@ pipeline {
 		}
 		success {
 			slackSend failOnError: true, 
-				message: "Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 		}
 		failure {
 			slackSend failOnError: true,
-				message: "Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+				message: "I don't see, I don't see. Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 		}
 	}
 } 
