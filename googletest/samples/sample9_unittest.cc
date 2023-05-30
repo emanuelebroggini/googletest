@@ -30,120 +30,120 @@
 // an alternative console output and how to use the UnitTest reflection API
 // to enumerate test suites and tests and to inspect their results.
 
-/*
-#include <stdio.h>
 
-#include "gtest/gtest.h"
+// #include <stdio.h>
 
-using ::testing::EmptyTestEventListener;
-using ::testing::InitGoogleTest;
-using ::testing::Test;
-using ::testing::TestEventListeners;
-using ::testing::TestInfo;
-using ::testing::TestPartResult;
-using ::testing::UnitTest;
-namespace {
-// Provides alternative output mode which produces minimal amount of
-// information about tests.
-class TersePrinter : public EmptyTestEventListener {
- private:
-  // Called before any test activity starts.
-  void OnTestProgramStart(const UnitTest& /* unit_test */) /* override {}
+// #include "gtest/gtest.h"
 
-  // Called after all test activities have ended.
-  void OnTestProgramEnd(const UnitTest& unit_test) override {
-    fprintf(stdout, "TEST %s\n", unit_test.Passed() ? "PASSED" : "FAILED");
-    fflush(stdout);
-  }
+// using ::testing::EmptyTestEventListener;
+// using ::testing::InitGoogleTest;
+// using ::testing::Test;
+// using ::testing::TestEventListeners;
+// using ::testing::TestInfo;
+// using ::testing::TestPartResult;
+// using ::testing::UnitTest;
+// namespace {
+// // Provides alternative output mode which produces minimal amount of
+// // information about tests.
+// class TersePrinter : public EmptyTestEventListener {
+//  private:
+//   // Called before any test activity starts.
+//   void OnTestProgramStart(const UnitTest& /* unit_test */)  override {}
 
-  // Called before a test starts.
-  void OnTestStart(const TestInfo& test_info) override {
-    fprintf(stdout, "*** Test %s.%s starting.\n", test_info.test_suite_name(),
-            test_info.name());
-    fflush(stdout);
-  }
+//   // Called after all test activities have ended.
+//   void OnTestProgramEnd(const UnitTest& unit_test) override {
+//     fprintf(stdout, "TEST %s\n", unit_test.Passed() ? "PASSED" : "FAILED");
+//     fflush(stdout);
+//   }
 
-  // Called after a failed assertion or a SUCCEED() invocation.
-  void OnTestPartResult(const TestPartResult& test_part_result) override {
-    fprintf(stdout, "%s in %s:%d\n%s\n",
-            test_part_result.failed() ? "*** Failure" : "Success",
-            test_part_result.file_name(), test_part_result.line_number(),
-            test_part_result.summary());
-    fflush(stdout);
-  }
+//   // Called before a test starts.
+//   void OnTestStart(const TestInfo& test_info) override {
+//     fprintf(stdout, "*** Test %s.%s starting.\n", test_info.test_suite_name(),
+//             test_info.name());
+//     fflush(stdout);
+//   }
 
-  // Called after a test ends.
-  void OnTestEnd(const TestInfo& test_info) override {
-    fprintf(stdout, "*** Test %s.%s ending.\n", test_info.test_suite_name(),
-            test_info.name());
-    fflush(stdout);
-  }
-};  // class TersePrinter
+//   // Called after a failed assertion or a SUCCEED() invocation.
+//   void OnTestPartResult(const TestPartResult& test_part_result) override {
+//     fprintf(stdout, "%s in %s:%d\n%s\n",
+//             test_part_result.failed() ? "*** Failure" : "Success",
+//             test_part_result.file_name(), test_part_result.line_number(),
+//             test_part_result.summary());
+//     fflush(stdout);
+//   }
 
-TEST(CustomOutputTest, PrintsMessage) {
-  printf("Printing something from the test body...\n");
-}
+//   // Called after a test ends.
+//   void OnTestEnd(const TestInfo& test_info) override {
+//     fprintf(stdout, "*** Test %s.%s ending.\n", test_info.test_suite_name(),
+//             test_info.name());
+//     fflush(stdout);
+//   }
+// };  // class TersePrinter
 
-TEST(CustomOutputTest, Succeeds) {
-  SUCCEED() << "SUCCEED() has been invoked from here";
-}
+// TEST(CustomOutputTest, PrintsMessage) {
+//   printf("Printing something from the test body...\n");
+// }
 
-TEST(CustomOutputTest, Fails) {
-  EXPECT_EQ(1, 2)
-      << "This test fails in order to demonstrate alternative failure messages";
-}
-}  // namespace
+// TEST(CustomOutputTest, Succeeds) {
+//   SUCCEED() << "SUCCEED() has been invoked from here";
+// }
 
-int main(int argc, char** argv) {
-  InitGoogleTest(&argc, argv);
+// TEST(CustomOutputTest, Fails) {
+//   EXPECT_EQ(1, 2)
+//       << "This test fails in order to demonstrate alternative failure messages";
+// }
+// }  // namespace
 
-  bool terse_output = false;
-  if (argc > 1 && strcmp(argv[1], "--terse_output") == 0)
-    terse_output = true;
-  else
-    printf("%s\n",
-           "Run this program with --terse_output to change the way "
-           "it prints its output.");
+// int main(int argc, char** argv) {
+//   InitGoogleTest(&argc, argv);
 
-  UnitTest& unit_test = *UnitTest::GetInstance();
+//   bool terse_output = false;
+//   if (argc > 1 && strcmp(argv[1], "--terse_output") == 0)
+//     terse_output = true;
+//   else
+//     printf("%s\n",
+//            "Run this program with --terse_output to change the way "
+//            "it prints its output.");
 
-  // If we are given the --terse_output command line flag, suppresses the
-  // standard output and attaches own result printer.
-  if (terse_output) {
-    TestEventListeners& listeners = unit_test.listeners();
+//   UnitTest& unit_test = *UnitTest::GetInstance();
 
-    // Removes the default console output listener from the list so it will
-    // not receive events from Google Test and won't print any output. Since
-    // this operation transfers ownership of the listener to the caller we
-    // have to delete it as well.
-    delete listeners.Release(listeners.default_result_printer());
+//   // If we are given the --terse_output command line flag, suppresses the
+//   // standard output and attaches own result printer.
+//   if (terse_output) {
+//     TestEventListeners& listeners = unit_test.listeners();
 
-    // Adds the custom output listener to the list. It will now receive
-    // events from Google Test and print the alternative output. We don't
-    // have to worry about deleting it since Google Test assumes ownership
-    // over it after adding it to the list.
-    listeners.Append(new TersePrinter);
-  }
-  int ret_val = RUN_ALL_TESTS();
+//     // Removes the default console output listener from the list so it will
+//     // not receive events from Google Test and won't print any output. Since
+//     // this operation transfers ownership of the listener to the caller we
+//     // have to delete it as well.
+//     delete listeners.Release(listeners.default_result_printer());
 
-  // This is an example of using the UnitTest reflection API to inspect test
-  // results. Here we discount failures from the tests we expected to fail.
-  int unexpectedly_failed_tests = 0;
-  for (int i = 0; i < unit_test.total_test_suite_count(); ++i) {
-    const testing::TestSuite& test_suite = *unit_test.GetTestSuite(i);
-    for (int j = 0; j < test_suite.total_test_count(); ++j) {
-      const TestInfo& test_info = *test_suite.GetTestInfo(j);
-      // Counts failed tests that were not meant to fail (those without
-      // 'Fails' in the name).
-      if (test_info.result()->Failed() &&
-          strcmp(test_info.name(), "Fails") != 0) {
-        unexpectedly_failed_tests++;
-      }
-    }
-  }
+//     // Adds the custom output listener to the list. It will now receive
+//     // events from Google Test and print the alternative output. We don't
+//     // have to worry about deleting it since Google Test assumes ownership
+//     // over it after adding it to the list.
+//     listeners.Append(new TersePrinter);
+//   }
+//   int ret_val = RUN_ALL_TESTS();
 
-  // Test that were meant to fail should not affect the test program outcome.
-  if (unexpectedly_failed_tests == 0) ret_val = 0;
+//   // This is an example of using the UnitTest reflection API to inspect test
+//   // results. Here we discount failures from the tests we expected to fail.
+//   int unexpectedly_failed_tests = 0;
+//   for (int i = 0; i < unit_test.total_test_suite_count(); ++i) {
+//     const testing::TestSuite& test_suite = *unit_test.GetTestSuite(i);
+//     for (int j = 0; j < test_suite.total_test_count(); ++j) {
+//       const TestInfo& test_info = *test_suite.GetTestInfo(j);
+//       // Counts failed tests that were not meant to fail (those without
+//       // 'Fails' in the name).
+//       if (test_info.result()->Failed() &&
+//           strcmp(test_info.name(), "Fails") != 0) {
+//         unexpectedly_failed_tests++;
+//       }
+//     }
+//   }
 
-  return ret_val;
-}
+//   // Test that were meant to fail should not affect the test program outcome.
+//   if (unexpectedly_failed_tests == 0) ret_val = 0;
+
+//   return ret_val;
+// }
