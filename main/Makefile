@@ -8,7 +8,7 @@ SOURCES = $(wildcard ./*.cc)
 # Generate a list of corresponding .o files in the build directory
 OBJECTSWITHTEST = $(patsubst ./%.cc,$(BUILDDIR)/%.o,$(SOURCES))
 OBJECTS = $(filter-out %_unittest.o,$(OBJECTSWITHTEST)) # main.o and *.o without tests
-OBJECTSTEST = $(filter-out main.o,$(OBJECTSWITHTEST)) # files to test using gtest_main
+OBJECTSTEST = $(filter-out %main.o,$(OBJECTSWITHTEST)) # files to test using gtest_main
 
 all: main.exe tests.exe
 
