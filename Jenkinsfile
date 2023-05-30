@@ -101,7 +101,7 @@ pipeline {
 		}
 		success {
 			slackSend failOnError: true, 
-				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}ms"
 		}
 		failure {
 			slackSend failOnError: true,
