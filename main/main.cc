@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../googletest/samples/string_functions.cc" // Include the file containing the ToUpperCase() function
+#include "./string_functions.cc" // Include the file containing the ToUpperCase() function
 
 int main(int argc, char* argv[]) {
     // Check if the correct number of command-line arguments is provided
     if (argc != 3) {
-        std::cerr << "Usage: ./program <inputFilePath> <outputFilePath>" << std::endl;
+        std::cerr << "Usage: ./main.exe <inputFilePath> <outputFilePath>" << std::endl;
         return 1;
     }
 

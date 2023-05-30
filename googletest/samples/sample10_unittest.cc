@@ -28,7 +28,7 @@
 
 // This sample shows how to use Google Test listener API to implement
 // a primitive leak checker.
-/*
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -136,4 +136,3 @@ int main(int argc, char** argv) {
   }
   return RUN_ALL_TESTS();
 }
-*/
