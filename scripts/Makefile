@@ -29,7 +29,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cc
 
 # Rule to build object file of main section 4.3
 $(MAINDIR)/build/main.o: $(MAINDIR)/main.cc
-	@mkdir -p $(MAINDIR)/build/
+	@mkdir -p $(MAINDIR)/build
 	$(CC) $(CFLAGS) $< -o $@
 
 
@@ -38,4 +38,4 @@ clean:
 	rm -rf $(BUILDDIR)
 	rm -rf $(MAINDIR)/build/
 
-.PHONY: main clean
+.PHONY: clean
