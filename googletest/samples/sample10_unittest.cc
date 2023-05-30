@@ -28,7 +28,7 @@
 
 // This sample shows how to use Google Test listener API to implement
 // a primitive leak checker.
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -52,7 +52,7 @@ class Water {
     return malloc(allocation_size);
   }
 
-  void operator delete(void* block, size_t /* allocation_size */) {
+  void operator delete(void* block, size_t allocation_size) {
     allocated_--;
     free(block);
   }
@@ -72,12 +72,12 @@ int Water::allocated_ = 0;
 class LeakChecker : public EmptyTestEventListener {
  private:
   // Called before a test starts.
-  void OnTestStart(const TestInfo& /* test_info */) override {
+  void OnTestStart(const TestInfo& test_info) override {
     initially_allocated_ = Water::allocated();
   }
 
   // Called after a test ends.
-  void OnTestEnd(const TestInfo& /* test_info */) override {
+  void OnTestEnd(const TestInfo& test_info) override {
     int difference = Water::allocated() - initially_allocated_;
 
     // You can generate a failure in any event handler except
@@ -136,3 +136,4 @@ int main(int argc, char** argv) {
   }
   return RUN_ALL_TESTS();
 }
+*/
