@@ -1,2 +1,2 @@
 #!/bin/bash
-./tests
+cd scripts/ && ./tests
