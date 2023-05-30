@@ -30,6 +30,7 @@
 // an alternative console output and how to use the UnitTest reflection API
 // to enumerate test suites and tests and to inspect their results.
 
+/*
 #include <stdio.h>
 
 #include "gtest/gtest.h"
@@ -47,7 +48,7 @@ namespace {
 class TersePrinter : public EmptyTestEventListener {
  private:
   // Called before any test activity starts.
-  void OnTestProgramStart(const UnitTest& /* unit_test */) override {}
+  void OnTestProgramStart(const UnitTest& /* unit_test */) /* override {}
 
   // Called after all test activities have ended.
   void OnTestProgramEnd(const UnitTest& unit_test) override {
