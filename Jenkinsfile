@@ -42,7 +42,7 @@ pipeline {
 		stage('Run') {
 			steps {
 				echo 'Run our main'
-				sh "./main/main.exe ./CMakeLists.txt ./uppercase.txt"
+				sh "./main/main.exe ./main/inputText.txt ./main/uppercaseText.txt"
 			}
 		}
 		stage('Deploy') {
