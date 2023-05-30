@@ -28,7 +28,7 @@ pipeline {
 		stage('Build') {
             steps {
                 echo 'Building our main'
-				slackSend "Build of our main Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+				slackSend message: "Build of our main Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 				sh 'chmod u+x scripts/OurMain-Build.sh'
 				sh './scripts/OurMain-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
