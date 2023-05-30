@@ -50,13 +50,19 @@ pipeline {
                 echo 'Deploying....(not implemented yet)'
             }
         }
-		post {
-		 	success {
-		 		slackSend failOnError: true, message: "Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-		 	}
-		 	failure {
-		 		slackSend failOnError: true, message: "Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-		 	}
+	}
+	post {
+		always {
+			echo 'One way or another, I have finished'
+			deleteDir() /* clean up our workspace */
+		}
+		success {
+			slackSend failOnError: true, 
+				message: "Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+		}
+		failure {
+			slackSend failOnError: true,
+				message: "Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 		}
 	}
 } 
