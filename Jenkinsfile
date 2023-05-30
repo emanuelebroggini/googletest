@@ -9,7 +9,7 @@ pipeline {
 				sh 'echo "Building sample tests"'
 				// sh 'chmod +x scripts/Linux-Build.sh'
 				sh 'cd ./googletest/samples && make'
-				archiveArtifacts artifacts: './googletest/samples/*.exe', fingerprint: true
+				archiveArtifacts artifacts: 'googletest/samples/*.exe', fingerprint: true
 			}
 		}
 		stage('RunSampleTests') {
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Building our main'
 				sh 'cd ./main && make'
-				archiveArtifacts artifacts: './main/*.exe', fingerprint: true
+				archiveArtifacts artifacts: 'main/*.exe', fingerprint: true
             }
         }
 		stage('Test') {
