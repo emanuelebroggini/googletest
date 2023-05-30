@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Building our main'
 				sh 'chmod u+x scripts/OurMain-Build.sh'
-				sh './scripts/OurMainBuild.sh'
+				sh './scripts/OurMain-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
