@@ -21,7 +21,7 @@ pipeline {
             }
 			steps {
 				echo "Running sample tests"
-				// sh 'chmod +x scripts/Linux-Run.sh'
+				sh './googletest/samples/samples.exe'
 				script {
                     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
                     if (exitCode != 0) {
@@ -46,7 +46,13 @@ pipeline {
             }
             steps {
                 echo 'Test our functions'
-				sh "./main/tests.exe"
+				// sh "./main/tests.exe"
+				script {
+                    def exitCode = sh "./main/tests.exe", returnStatus: true
+                    if (exitCode != 0) {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
             }
         }
 		stage('Run') {
@@ -58,6 +64,7 @@ pipeline {
 			steps {
 				echo 'Run our main'
 				sh "./main/main.exe ./main/inputText.txt ./main/uppercaseText.txt"
+				sh "less ./main/uppercaseText.txt"
 			}
 		}
 		stage('Deploy') {
