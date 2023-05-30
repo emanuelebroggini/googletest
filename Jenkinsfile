@@ -9,7 +9,7 @@ pipeline {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
 				sh './scripts/Linux-Build.sh'
-				// sh 'cd ./googletest/samples && make'
+				// sh 'cd ./googletest/samples && make' this is not working
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
 		}
@@ -51,9 +51,9 @@ pipeline {
             }
         }
 		post {
-		 	// always {
-		 	// 	junit '**/target/*.xml'
-		 	// }
+		 	success {
+		 		slackSend failOnError: true, message: "Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+		 	}
 		 	failure {
 		 		slackSend failOnError: true, message: "Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 		 	}
