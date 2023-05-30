@@ -28,7 +28,6 @@ pipeline {
 		stage('Build') {
             steps {
                 echo 'Building our main'
-				slackSend message: "Build of our main Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 				sh 'chmod u+x scripts/OurMain-Build.sh'
 				sh './scripts/OurMain-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
@@ -51,13 +50,13 @@ pipeline {
                 echo 'Deploying....(not implemented yet)'
             }
         }
-		// post {
-		// 	always {
-		// 		junit '**/target/*.xml'
-		// 	}
-		// 	failure {
-		// 		mail to: hello@example.com, subject: 'The Pipeline failed :('
-		// 	}
-		// }
+		post {
+		 	// always {
+		 	// 	junit '**/target/*.xml'
+		 	// }
+		 	failure {
+		 		slackSend failOnError: true, message: "Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+		 	}
+		}
 	}
 } 
