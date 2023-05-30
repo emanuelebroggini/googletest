@@ -8,8 +8,8 @@ pipeline {
 			steps {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
-				//sh './scripts/Linux-Build.sh'
-				sh 'cd ./googletest/samples && make'
+				sh './scripts/Linux-Build.sh'
+				// sh 'cd ./googletest/samples && make'
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
 		}
@@ -28,7 +28,8 @@ pipeline {
 		stage('Build') {
             steps {
                 echo 'Building our main'
-				sh 'cd main/ && make'
+				sh 'chmod u+x scripts/OurMain-Build.sh'
+				sh './scripts/OurMainBuild.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
