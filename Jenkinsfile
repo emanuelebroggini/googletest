@@ -7,8 +7,9 @@ pipeline {
 		stage('BuildSamples') {
 			steps {
 				sh 'echo "Building sample tests"'
-				// sh 'chmod +x scripts/Linux-Build.sh'
-				sh 'cd ./googletest/samples && make'
+				sh 'chmod +x scripts/Linux-Build.sh'
+				sh './scripts/Linux-Build.sh'
+				// sh 'cd ./googletest/samples && make'
 				archiveArtifacts artifacts: 'googletest/samples/*.exe', fingerprint: true
 			}
 		}
@@ -21,7 +22,7 @@ pipeline {
 			steps {
 				sh 'echo "Running sample tests"'
 				// sh 'chmod +x scripts/Linux-Run.sh' 
-				sh 'cd ./googletest/samples && ./samples.exe'
+				sh 'cd googletest/samples/ && ./samples.exe'
 			}
 		}
 		stage('Build') {

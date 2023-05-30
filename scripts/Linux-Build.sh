@@ -1,2 +1,2 @@
 #!/bin/bash
-cd scripts/ && make
+cd googletest/samples/ && make
