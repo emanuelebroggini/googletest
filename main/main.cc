@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "./string_functions.cc" // Include the file containing the ToUpperCase() function
+#include "string_functions.h" // Include the file containing the ToUpperCase() function
 
 int main(int argc, char* argv[]) {
     // Check if the correct number of command-line arguments is provided

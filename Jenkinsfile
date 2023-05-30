@@ -6,10 +6,10 @@ pipeline {
 	stages {
 		stage('BuildSamples') {
 			steps {
-				sh 'echo "Building sample tests"'
+				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
-				sh './scripts/Linux-Build.sh'
-				// sh 'cd ./googletest/samples && make'
+				//sh './scripts/Linux-Build.sh'
+				sh 'cd ./googletest/samples && make'
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
 		}
@@ -20,7 +20,7 @@ pipeline {
             //   }
             // }
 			steps {
-				sh 'echo "Running sample tests"'
+				echo "Running sample tests"
 				// sh 'chmod +x scripts/Linux-Run.sh' 
 				sh './googletest/samples/samples.exe'
 			}
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Building our main'
 				sh 'cd main/ && make'
-				archiveArtifacts artifacts: 'main/*.exe', fingerprint: true
+				archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
 		stage('Test') {
