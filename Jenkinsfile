@@ -12,13 +12,6 @@ pipeline {
 				// sh 'cd ./googletest/samples && make' this is not working
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
-			post {
-				failure {
-					script {
-						currentBuild.result = 'FAILURE'
-					}
-				}
-			}
 		}
 		stage('RunSampleTests') {
 			when {
@@ -28,15 +21,13 @@ pipeline {
             }
 			steps {
 				echo "Running sample tests"
-				// sh 'chmod +x scripts/Linux-Run.sh' 
-				sh './googletest/samples/samples.exe'
-			}
-			post {
-				always {
-					script {
-						currentBuild.result = 'SUCCESS'
-					}
-				}
+				// sh 'chmod +x scripts/Linux-Run.sh'
+				script {
+                    def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
+                    if (exitCode != 0) {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
 			}
 		}
 		stage('Build') {
@@ -46,13 +37,6 @@ pipeline {
 				sh './scripts/OurMain-Build.sh'
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
-			post {
-				failure {
-					script {
-						currentBuild.result = 'FAILURE'
-					}
-				}
-			}
         }
 		stage('Test') {
 			when {
@@ -64,13 +48,6 @@ pipeline {
                 echo 'Test our functions'
 				sh "./main/tests.exe"
             }
-			post {
-				failure {
-					script {
-						currentBuild.result = 'FAILURE'
-					}
-				}
-			}
         }
 		stage('Run') {
 			when {
@@ -101,7 +78,7 @@ pipeline {
 		}
 		success {
 			slackSend failOnError: true, 
-				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}ms"
+				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}"
 		}
 		failure {
 			slackSend failOnError: true,
