@@ -24,10 +24,12 @@ pipeline {
 				sh './googletest/samples/samples.exe'
 				script {
                     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
-					echo exitCode
-                    // if (exitCode != 0) {
-                    //     currentBuild.result = 'FAILURE'
-                    // }
+					// echo exitCode
+                    if (exitCode != 0) {
+                        currentBuild.result = 'FAILURE'
+                    }else {
+						currentBuild.result = 'SUCCESS'
+					}
                 }
 			}
 		}
