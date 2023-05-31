@@ -60,7 +60,8 @@ pipeline {
         }
 		stage('CreateDockerImage'){
 			steps {
-				sh 'mkdir main/docker '
+				sh 'mkdir main/docker'
+				sh '-v $(which docker) :/usr/bin/docker'
                 sh 'docker build -t SWENG:latest .'
             }
 		} 
