@@ -56,6 +56,19 @@ pipeline {
                 }
             }
         }
+	/*	stage('CreateDockerImage'){
+			steps {
+                sh 'docker build -t SWENG:latest .'
+            }
+		} */
+
+	/* stage('PushDockerImage') {
+            steps {
+                sh 'docker push SWENG:latest'
+			}
+		}	
+	*/	
+
 		stage('Run') {
 			when {
             	expression {
