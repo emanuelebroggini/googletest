@@ -2,6 +2,7 @@ pipeline {
 	agent any
 	//environment {
 	//	LD_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu'
+	//  export PATH="/usr/local/bin/docker:$PATH"
 	//}
 	stages {
 		stage('BuildSamples') {
@@ -62,7 +63,7 @@ pipeline {
 			steps {
 				sh 'mkdir main/docker && pwd'
 				sh 'pwd'
-				sh '-v $(which docker) :/usr/bin/docker'
+				// sh '-v $(which docker) :/usr/bin/docker'
                 sh 'docker build -t SWENG:latest .'
             }
 		} 
