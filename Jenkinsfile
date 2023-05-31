@@ -22,15 +22,15 @@ pipeline {
 			steps {
 				echo "Running sample tests"
 				sh './googletest/samples/samples.exe'
-				script {
-                    def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
-					// echo exitCode
-                    if (exitCode != 0) {
-                        currentBuild.result = 'FAILURE'
-                    }else {
-						currentBuild.result = 'SUCCESS'
-					}
-                }
+				// script {
+                //     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
+				// 	// echo exitCode
+                //     if (exitCode != 0) {
+                //         currentBuild.result = 'FAILURE'
+                //     }else {
+				// 		currentBuild.result = 'SUCCESS'
+				// 	}
+                // }
 			}
 		}
 		stage('Build') {
@@ -49,13 +49,13 @@ pipeline {
             }
             steps {
                 echo 'Test our functions'
-				// sh "./main/tests.exe"
-				script {
-                    def exitCode = sh "./main/tests.exe", returnStatus: true
-                    if (exitCode != 0) {
-                        currentBuild.result = 'FAILURE'
-                    }
-                }
+				sh "./main/tests.exe"
+				// script {
+                //     def exitCode = sh "./main/tests.exe", returnStatus: true
+                //     if (exitCode != 0) {
+                //         currentBuild.result = 'FAILURE'
+                //     }
+                // }
             }
         }
 	/*	stage('CreateDockerImage'){
