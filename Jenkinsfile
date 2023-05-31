@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	environment {
 	//	LD_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu'
-	  export PATH="/var/lib/docker:$PATH"
+	  export PATH='/var/lib/docker:$PATH'
 	}
 	stages {
 		stage('BuildSamples') {
