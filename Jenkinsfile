@@ -72,6 +72,7 @@ pipeline {
 
 	    stage('PushDockerImage') {
             steps {
+				dh 'docker login -u leobeltra -p ratto8080'
                 sh 'docker push leobeltra/sweng4hpc'
 			}
 		}	
