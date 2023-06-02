@@ -105,13 +105,13 @@ pipeline {
 			echo 'One way or another, I have finished'
 			// deleteDir() /* clean up our workspace */
 		}
-		success {
-			slackSend failOnError: true, 
-				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}"
-		}
-		failure {
-			slackSend failOnError: true,
-				message: "I don't see, I don't see. Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-		}
+		// success {
+		// 	slackSend failOnError: true, 
+		// 		message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}"
+		// }
+		// failure {
+		// 	slackSend failOnError: true,
+		// 		message: "I don't see, I don't see. Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+		// }
 	}
 } 
