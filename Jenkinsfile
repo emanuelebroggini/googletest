@@ -61,18 +61,18 @@ pipeline {
             }
         }
 		stage('CreateDockerImage'){
-			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
+			//agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
 			steps {
-				sh 'mkdir main/docker && pwd'
-				sh 'pwd'
+				//sh 'mkdir main/docker && pwd'
+				//sh 'pwd'
 				// sh '-v $(which docker) :/usr/bin/docker'
-                sh 'docker build -t SWENG:latest .'
+                sh 'docker build -t leobeltra/sweng4hpc .'
             }
 		} 
 
 	    stage('PushDockerImage') {
             steps {
-                sh 'docker push SWENG:latest'
+                sh 'docker push leobeltra/sweng4hpc'
 			}
 		}	
 		
