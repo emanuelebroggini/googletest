@@ -1,13 +1,13 @@
 # Utilizza un'immagine di base contenente il compilatore C++ e le dipendenze necessarie
- FROM gcc:latest
+ FROM ubuntu:latest
  
 # Expose port :8080
 # EXPOSE 8080
-
+ WORKDIR /app
 # Copia i file del progetto nella directory di lavoro dell'immagine
- COPY main/main.exe ./main/docker
+ COPY main/main.exe ./main/inputText.txt
 # Imposta la directory di lavoro
- WORKDIR ./main/docker
+
 
 # Installa eventuali dipendenze necessarie per il tuo progetto
  RUN apt-get update 
