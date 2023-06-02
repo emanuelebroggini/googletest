@@ -6,7 +6,7 @@ pipeline {
 	} */
 	stages {
 		stage('BuildSamples') {
-			agent { node { label 'build '} }
+			agent { node { label 'build'} }
 			steps {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
