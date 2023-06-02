@@ -1,11 +1,12 @@
 pipeline {
 	agent any
-	//environment {
+	/* environment {
 	//	LD_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu'
-	  //PATH='/var/lib/docker:$PATH'
-	//}
+	  PATH='/var/lib/docker:$PATH'
+	} */
 	stages {
 		stage('BuildSamples') {
+			agent { node { label 'build '}  }
 			steps {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
@@ -60,6 +61,7 @@ pipeline {
             }
         }
 		stage('CreateDockerImage'){
+			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
 			steps {
 				sh 'mkdir main/docker && pwd'
 				sh 'pwd'
