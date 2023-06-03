@@ -72,12 +72,12 @@ pipeline {
 		} 
 
 	    stage('PushDockerImage') {
+			agent { node { label 'deploy' } }
             steps {
 				sh 'docker login -u leobeltra -p ratto8080'
                 sh 'docker push leobeltra/sweng4hpc'
 			}
-		}	
-		
+		}
 
 		stage('Run') {
 			when {
@@ -91,21 +91,11 @@ pipeline {
 				sh "less ./main/uppercaseText.txt"
 			}
 		}
-		stage('Deploy') {
-			when {
-            	expression {
-            		currentBuild.currentResult == 'SUCCESS' 
-            	}
-            }
-            steps {
-                echo 'Deploying....(not implemented yet)'
-            }
-        }
 	}
 	post {
 		always {
-			echo 'One way or another, I have finished'
-			// deleteDir() /* clean up our workspace */
+			echo 'One way or another, I have finished. Clean up our workspace'
+			deleteDir() /* clean up our workspace */
 		}
 		success {
 			slackSend failOnError: true, 
