@@ -11,7 +11,6 @@ pipeline {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
 				sh './scripts/Linux-Build.sh'
-				// sh 'cd ./googletest/samples && make' this is not working
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
 		}
@@ -40,6 +39,7 @@ pipeline {
                 echo 'Building our main'
 				sh 'chmod u+x scripts/OurMain-Build.sh'
 				sh './scripts/OurMain-Build.sh'
+				stash includes: 'main/main.exe', name: 'our exe'
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
@@ -61,11 +61,12 @@ pipeline {
             }
         }
 		stage('CreateDockerImage'){
-			//agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
+			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
 			steps {
 				//sh 'mkdir main/docker && pwd'
 				//sh 'pwd'
 				// sh '-v $(which docker) :/usr/bin/docker'
+				unstash 'our exe'
                 sh 'docker build -t leobeltra/sweng4hpc .'
             }
 		} 
