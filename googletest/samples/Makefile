@@ -8,6 +8,9 @@ SOURCES = $(wildcard ./*.cc)
 # Generate a list of corresponding .o files in the build directory
 OBJECTSWITHTEST = $(patsubst ./%.cc,$(BUILDDIR)/%.o,$(SOURCES))
 
+all: samples135.exe samples678.exe sample2.exe sample4.exe sample9.exe sample10.exe
+
+
 # Rule to build the executable to test all the sample functions
 samples135.exe: $(BUILDDIR)/sample1.o $(BUILDDIR)/sample1_unittest.o $(BUILDDIR)/sample3_unittest.o $(BUILDDIR)/sample5_unittest.o
 	$(CC) $^ -o $@ -lgtest -pthread -lgtest_main
@@ -35,4 +38,4 @@ $(BUILDDIR)/%.o: ./%.cc
 clean:
 	rm -rf $(BUILDDIR)
 
-.PHONY: clean
+.PHONY: clean all
