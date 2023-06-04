@@ -16,6 +16,7 @@ pipeline {
             		currentBuild.currentResult == 'SUCCESS' 
             	}
             }
+			agent { node { label 'build'} }
 			steps {
 				echo "Running sample tests"
 				sh 'chmod u+x scripts/Linux-Run.sh'
