@@ -2,12 +2,6 @@ CC = g++
 CFLAGS = -c -Wall
 BUILDDIR = ./build
 
-# Get a list of all .cc files in the source directory
-SOURCES = $(wildcard ./*.cc)
-
-# Generate a list of corresponding .o files in the build directory
-OBJECTSWITHTEST = $(patsubst ./%.cc,$(BUILDDIR)/%.o,$(SOURCES))
-
 all: samples135.exe samples678.exe sample2.exe sample4.exe sample9.exe sample10.exe
 
 
