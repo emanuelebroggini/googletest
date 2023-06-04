@@ -9,9 +9,19 @@ SOURCES = $(wildcard ./*.cc)
 OBJECTSWITHTEST = $(patsubst ./%.cc,$(BUILDDIR)/%.o,$(SOURCES))
 
 # Rule to build the executable to test all the sample functions
-samples.exe: $(OBJECTSWITHTEST)
-	$(CC) $^ -o $@ -lgtest -pthread
+samples135.exe: $(BUILDDIR)/sample1.o $(BUILDDIR)/sample3.o $(BUILDDIR)/sample5.o $(BUILDDIR)/sample1_unittest.o $(BUILDDIR)/sample3_unittest.o $(BUILDDIR)/sample5_unittest.o
+samples678.exe: $(BUILDDIR)/sample6_unittest.o $(BUILDDIR)/sample7_unittest.o $(BUILDDIR)/sample8_unittest.o # $(BUILDDIR)/prime_tables.o
+sample2.exe: $(BUILDDIR)/sample2.o $(BUILDDIR)/sample2_unittest.o
+sample4.exe: $(BUILDDIR)/sample4.o $(BUILDDIR)/sample4_unittest.o
 
+samples135.exe samples876.exe sample2.exe sample4.exe: 
+	$(CC) $^ -o $@ -lgtest -pthread -lgtest_main
+
+sample9.exe: $(BUILDDIR)/sample9_unittest.o
+sample10.exe: $(BUILDDIR)/sample10_unittest.o
+
+sample9.exe sample10.exe: 
+	$(CC) $^ -o $@ -lgtest -pthread
 
 # Rule to build object files
 $(BUILDDIR)/%.o: ./%.cc

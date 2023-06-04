@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "string_functions.h" // Include the file containing the ToUpperCase() function
+#include "../googletest/samples/sample1.h"
 
 int main(int argc, char* argv[]) {
     // Check if the correct number of command-line arguments is provided
@@ -28,11 +28,10 @@ int main(int argc, char* argv[]) {
         return 3;
     }
 
-    std::string line;
-    while (std::getline(inputFile, line)) {
-
-        // Write the uppercase data to the file
-        outputFile << ToUpperCase(line) << std::endl;
+    int number;
+    while (inputFile >> number) {
+        // Write the result to the output file
+        outputFile << number << " is " << (IsPrime(number) ? "prime" : "not prime") << " and the factorial is: " << Factorial(number) << std::endl;
     }
 
     // Close the input and output files

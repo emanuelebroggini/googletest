@@ -1,9 +1,5 @@
 pipeline {
 	agent any
-	/* environment {
-	//	LD_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu'
-	  PATH='/var/lib/docker:$PATH'
-	} */
 	stages {
 		stage('BuildSamples') {
 			agent { node { label 'build'} }
@@ -14,7 +10,7 @@ pipeline {
 				archiveArtifacts artifacts: '*', fingerprint: true
 			}
 		}
-		stage('RunSampleTests') {
+		stage('Test') {
 			when {
             	expression {
             		currentBuild.currentResult == 'SUCCESS' 
@@ -22,7 +18,8 @@ pipeline {
             }
 			steps {
 				echo "Running sample tests"
-				sh './googletest/samples/samples.exe'
+				sh 'chmod u+x scripts/Linux-Run.sh'
+				sh './scripts/Linux-Run.sh'
 				// script {
                 //     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
 				// 	// echo exitCode
@@ -35,6 +32,11 @@ pipeline {
 			}
 		}
 		stage('Build') {
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
             steps {
                 echo 'Building our main'
 				sh 'chmod u+x scripts/OurMain-Build.sh'
@@ -43,42 +45,6 @@ pipeline {
 				archiveArtifacts artifacts: '*', fingerprint: true
             }
         }
-		stage('Test') {
-			when {
-            	expression {
-            		currentBuild.currentResult == 'SUCCESS' 
-            	}
-            }
-            steps {
-                echo 'Test our functions'
-				sh "./main/tests.exe"
-				// script {
-                //     def exitCode = sh "./main/tests.exe", returnStatus: true
-                //     if (exitCode != 0) {
-                //         currentBuild.result = 'FAILURE'
-                //     }
-                // }
-            }
-        }
-		stage('CreateDockerImage'){
-			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
-			steps {
-				//sh 'mkdir main/docker && pwd'
-				//sh 'pwd'
-				// sh '-v $(which docker) :/usr/bin/docker'
-				unstash 'our exe'
-                sh 'docker build -t leobeltra/sweng4hpc .'
-            }
-		} 
-
-	    stage('PushDockerImage') {
-			agent { node { label 'deploy' } }
-            steps {
-				sh 'docker login -u leobeltra -p ratto8080'
-                sh 'docker push leobeltra/sweng4hpc'
-			}
-		}
-
 		stage('Run') {
 			when {
             	expression {
@@ -89,6 +55,33 @@ pipeline {
 				echo 'Run our main'
 				sh "./main/main.exe ./main/inputText.txt ./main/uppercaseText.txt"
 				sh "less ./main/uppercaseText.txt"
+			}
+		}
+		stage('CreateDockerImage'){
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
+			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
+			steps {
+				//sh 'mkdir main/docker && pwd'
+				//sh 'pwd'
+				// sh '-v $(which docker) :/usr/bin/docker'
+				unstash 'our exe'
+                sh 'docker build -t leobeltra/sweng4hpc .'
+            }
+		}
+	    stage('PushDockerImage') {
+			when {
+            	expression {
+            		currentBuild.currentResult == 'SUCCESS' 
+            	}
+            }
+			agent { node { label 'deploy' } }
+            steps {
+				sh 'docker login -u leobeltra -p ratto8080'
+                sh 'docker push leobeltra/sweng4hpc'
 			}
 		}
 	}
