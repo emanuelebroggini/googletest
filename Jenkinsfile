@@ -7,7 +7,7 @@ pipeline {
 				echo "Building sample tests"
 				sh 'chmod +x scripts/Linux-Build.sh'
 				sh './scripts/Linux-Build.sh'
-				archiveArtifacts artifacts: '*', fingerprint: true
+				archiveArtifacts artifacts: 'googletest/samples/sample*.exe', fingerprint: true
 			}
 		}
 		stage('Test') {
@@ -42,7 +42,7 @@ pipeline {
 				sh 'chmod u+x scripts/OurMain-Build.sh'
 				sh './scripts/OurMain-Build.sh'
 				stash includes: 'main/main.exe', name: 'our exe'
-				archiveArtifacts artifacts: '*', fingerprint: true
+				archiveArtifacts artifacts: 'main/main.exe', fingerprint: true
             }
         }
 		stage('Run') {
