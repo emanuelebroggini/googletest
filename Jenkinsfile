@@ -8,6 +8,7 @@ pipeline {
 				sh 'chmod +x scripts/Linux-Build.sh'
 				sh './scripts/Linux-Build.sh'
 				archiveArtifacts artifacts: 'googletest/samples/sample*.exe', fingerprint: true
+				stash includes: 'googletest/samples/sample*.exe', name: 'tests'
 			}
 		}
 		stage('Test') {
@@ -16,20 +17,11 @@ pipeline {
             		currentBuild.currentResult == 'SUCCESS' 
             	}
             }
-			agent { node { label 'build'} }
 			steps {
 				echo "Running sample tests"
+				unstash 'tests'
 				sh 'chmod u+x scripts/Linux-Run.sh'
 				sh './scripts/Linux-Run.sh'
-				// script {
-                //     def exitCode = sh './googletest/samples/samples.exe', returnStatus: true
-				// 	// echo exitCode
-                //     if (exitCode != 0) {
-                //         currentBuild.result = 'FAILURE'
-                //     }else {
-				// 		currentBuild.result = 'SUCCESS'
-				// 	}
-                // }
 			}
 		}
 		stage('Build') {
@@ -38,6 +30,7 @@ pipeline {
             		currentBuild.currentResult == 'SUCCESS' 
             	}
             }
+			agent { node { label 'build'} }
             steps {
                 echo 'Building our main'
 				sh 'chmod u+x scripts/OurMain-Build.sh'
@@ -64,11 +57,8 @@ pipeline {
             		currentBuild.currentResult == 'SUCCESS' 
             	}
             }
-			agent { node { label 'deploy' } } // nell'istanza del nodo deploy installare docker!
+			agent { node { label 'deploy' } }
 			steps {
-				//sh 'mkdir main/docker && pwd'
-				//sh 'pwd'
-				// sh '-v $(which docker) :/usr/bin/docker'
 				unstash 'our exe'
                 sh 'docker build -t leobeltra/sweng4hpc .'
             }
@@ -92,12 +82,10 @@ pipeline {
 			deleteDir() /* clean up our workspace */
 		}
 		success {
-			slackSend failOnError: true, 
-				message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}"
+			slackSend color: "good", failOnError: true, message: "I see, I see. Good job guys! - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)\nIt took ${currentBuild.durationString}"
 		}
 		failure {
-			slackSend failOnError: true,
-				message: "I don't see, I don't see. Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+			slackSend color: "danger", failOnError: true, message: "I don't see, I don't see. Something went wrong - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 		}
 	}
 } 
