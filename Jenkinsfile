@@ -71,8 +71,11 @@ pipeline {
             	}
             }
 			agent { node { label 'deploy' } }
+			environment {
+				DKRHUB_CREDS = credentials('DockerHub_credentials')
+			}
             steps {
-				sh 'docker login -u leobeltra -p ratto8080'
+				sh 'docker login -u $DKRHUB_CREDS_USR -p $DKRHUB_CREDS_PSW' // use single quotes here to hide usr and psw
                 sh 'docker push leobeltra/sweng4hpc'
 			}
 		}
