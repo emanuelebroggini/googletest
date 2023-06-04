@@ -78,6 +78,11 @@ pipeline {
 				sh 'docker login -u $DKRHUB_CREDS_USR -p $DKRHUB_CREDS_PSW' // use single quotes here to hide usr and psw
                 sh 'docker push leobeltra/sweng4hpc'
 			}
+			post {
+				always{
+					sh 'docker logout'
+				}
+			}
 		}
 	}
 	post {
