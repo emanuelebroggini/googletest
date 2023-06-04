@@ -88,7 +88,7 @@ pipeline {
 	post {
 		always {
 			echo 'One way or another, I have finished. Clean up our workspace'
-			deleteDir() /* clean up our workspace */
+			// deleteDir() /* clean up our workspace */
 		}
 		success {
 			slackSend failOnError: true, 
