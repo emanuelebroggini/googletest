@@ -46,6 +46,7 @@ pipeline {
             	}
             }
 			steps {
+				unstash 'our exe'
 				echo 'Run our main'
 				sh "./main/main.exe ./main/inputText.txt ./main/uppercaseText.txt"
 				sh "less ./main/uppercaseText.txt"
