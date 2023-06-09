@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../googletest/samples/sample1.h"
+// #include "../googletest/samples/sample1.h"
 
 int main(int argc, char* argv[]) {
     // Check if the correct number of command-line arguments is provided
     if (argc != 3) {
         std::cerr << "Usage: ./main.exe <inputFilePath> <outputFilePath>" << std::endl;
-        return 1;
+        return 1; 
     }
 
     // Extract the input and output file paths from the command-line arguments
@@ -31,7 +31,8 @@ int main(int argc, char* argv[]) {
     int number;
     while (inputFile >> number) {
         // Write the result to the output file
-        outputFile << number << " is " << (IsPrime(number) ? "prime" : "not prime") << " and the factorial is: " << Factorial(number) << std::endl;
+        outputFile << number << " is " << (IsPrime(number) ? "prime" : "not prime")    
+                            << " and the factorial is: " << Factorial(number) << std::endl;
     }
 
     // Close the input and output files
