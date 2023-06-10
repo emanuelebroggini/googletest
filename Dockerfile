@@ -5,7 +5,8 @@
 # EXPOSE 8080
  WORKDIR /app
 # Copia i file del progetto nella directory di lavoro dell'immagine
- COPY main/main.exe ./main/inputText.txt .
+ COPY main/main.exe .
+ COPY ./main/inputText.txt .
 # Imposta la directory di lavoro
 
 
@@ -17,4 +18,4 @@
 # RUN 
 
 # Specifica l'eseguibile predefinito da avviare quando il container viene eseguito
- CMD ["./main.exe"] 
+# CMD ["./main.exe"] 
