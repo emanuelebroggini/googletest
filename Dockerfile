@@ -19,5 +19,3 @@ RUN ./main.exe inputText.txt outText.txt
 
 # Mostra su terminale output
 CMD ["cat", "outText.txt"] 
-
-
