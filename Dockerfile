@@ -15,9 +15,9 @@
 #   && apt-get install -y nome_dipendenza 
 
 # Compila il codice sorgente
-# RUN 
+RUN ./main.exe inputText.txt outText.txt
 
 # Specifica l'eseguibile predefinito da avviare quando il container viene eseguito
-CMD ["./main.exe","inputText.txt" ,"outText.txt", "&&", "cat", "outText.txt"] 
+CMD ["cat", "outText.txt"] 
 
 
