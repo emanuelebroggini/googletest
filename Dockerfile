@@ -5,8 +5,7 @@
 # EXPOSE 8080
  WORKDIR /app
 # Copia i file del progetto nella directory di lavoro dell'immagine
-COPY main/build/main .
-COPY main/inputText.txt .
+ COPY main/main ./main/inputText.txt
 # Imposta la directory di lavoro
 
 
