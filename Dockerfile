@@ -14,10 +14,10 @@
  RUN apt-get update 
 #   && apt-get install -y nome_dipendenza 
 
-# Compila il codice sorgente
+# Esegue il main
 RUN ./main.exe inputText.txt outText.txt
 
-# Specifica l'eseguibile predefinito da avviare quando il container viene eseguito
+# Mostra su terminale output
 CMD ["cat", "outText.txt"] 
 
 
