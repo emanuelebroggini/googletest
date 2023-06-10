@@ -19,5 +19,5 @@
 
 # Specifica l'eseguibile predefinito da avviare quando il container viene eseguito
 CMD ["./main.exe","inputText.txt" ,"outText.txt"] 
-CMD ["cat outText.txt"]
+CMD ["cat", "outText.txt"]
 
