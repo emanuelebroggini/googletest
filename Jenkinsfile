@@ -56,7 +56,7 @@ pipeline {
 			when {
             	expression {
             		currentBuild.currentResult == 'SUCCESS' 
-            	} 
+            	}  
             }
 			agent { node { label 'deploy' } }
 			steps {
